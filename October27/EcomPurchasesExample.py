@@ -1,0 +1,21 @@
+import pandas as pd
+
+ecomDf = pd.read_csv("./October27/Ecommerce Purchases.csv")
+print(ecomDf.columns)
+print(ecomDf.head()) #Check head
+print("Rows: "+ str(len(ecomDf.index)) + "  Cols: " + str(len(ecomDf.columns)))
+print("Avg purchace price: " + str(ecomDf["Purchase Price"].mean()))
+print("Min purchase price: " + str(ecomDf["Purchase Price"].min()))
+print("Max purchase price: " + str(ecomDf["Purchase Price"].max()))
+print("Number of English speakers:", ecomDf["Language"].value_counts()["en"])
+print("Number of lawyers:", ecomDf["Job"].value_counts()["Lawyer"])
+print("Number of AMs:", ecomDf["AM or PM"].value_counts()["AM"], "Number of PMs:", ecomDf["AM or PM"].value_counts()["PM"])
+print("Top 5 jobs are: ", end="")
+print(*ecomDf["Job"].value_counts().index[0:5], sep=" & ")
+print("Purchase price from lot 90 WT:", ecomDf[(ecomDf["Lot"] == "90 WT")].iloc[0]["Purchase Price"])
+print("Email of credit 4926535242672853:", ecomDf[(ecomDf["Credit Card"]  == 4926535242672853)].iloc[0]["Email"])
+print("How many people have American Express as their Credit Card Provider and made a purchase above $95? ", end="")
+print(len(ecomDf[(ecomDf["CC Provider"] == "American Express") & (ecomDf["Purchase Price"] > 95)].index))
+print("Number of cards that expire in 2025:", ecomDf["CC Exp Date"].str.contains("25").value_counts()[True])
+print("Top 5 email services used: ", end="")
+print(*ecomDf["Email"].str.split("@").str[1].value_counts().index[0:5], sep=", ")
